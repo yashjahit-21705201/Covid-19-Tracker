@@ -16,6 +16,9 @@ class _NewsState extends State<News> {
         centerTitle: true,
         title: Text('News', style: TextStyle(fontWeight: FontWeight.bold),),
       ),
+      body: Center(
+        child: Text('In development'),
+      ),
     );
   }
 }

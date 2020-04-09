@@ -1,5 +1,4 @@
 import 'package:covid19tracker/models/summary.dart';
-import 'package:covid19tracker/provider/countries_provider.dart';
 import 'package:covid19tracker/provider/summary_provider.dart';
 import 'package:covid19tracker/screens/main_app_page.dart';
 import 'package:covid19tracker/screens/news.dart';
@@ -14,7 +13,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: CountriesProvider()),
         ChangeNotifierProvider.value(value: SummaryProvider()),
       ],
       child: MaterialApp(

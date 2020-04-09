@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:covid19tracker/models/country.dart';
 import 'package:covid19tracker/models/summary.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,5 +19,9 @@ class StatisticsRestApi {
     _summary = Summary.fromJson(userMap);
 
     return _summary;
+  }
+
+  List<Country> getCountriesList() {
+    return _summary.countries;
   }
 }

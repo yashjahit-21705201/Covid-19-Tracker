@@ -10,13 +10,13 @@ class Summary {
 
   @JsonKey(name: 'Global')
   final Global global;
-  @JsonKey(name: 'Country')
-  final List<Country> country;
+  @JsonKey(name: 'Countries')
+  final List<Country> countries;
   @JsonKey(name: 'Date')
   final DateTime date;
 
 
-  Summary({this.global, this.country, this.date});
+  Summary({this.global, this.countries, this.date});
 
   factory Summary.fromJson(Map<String, dynamic> json) => _$SummaryFromJson(json);
 

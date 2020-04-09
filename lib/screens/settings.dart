@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Text('In development'),
+    );
   }
 }
 

@@ -11,6 +11,8 @@ class Symptoms extends StatefulWidget {
 class _SymptomsState extends State<Symptoms> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Text('In development'),
+    );
   }
 }

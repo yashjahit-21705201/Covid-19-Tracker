@@ -11,7 +11,7 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
     global: json['Global'] == null
         ? null
         : Global.fromJson(json['Global'] as Map<String, dynamic>),
-    country: (json['Country'] as List)
+    countries: (json['Countries'] as List)
         ?.map((e) =>
             e == null ? null : Country.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -21,6 +21,6 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$SummaryToJson(Summary instance) => <String, dynamic>{
       'Global': instance.global,
-      'Country': instance.country,
+      'Countries': instance.countries,
       'Date': instance.date?.toIso8601String(),
     };
