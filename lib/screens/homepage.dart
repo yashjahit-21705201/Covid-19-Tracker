@@ -1,6 +1,8 @@
 import 'package:covid19tracker/models/summary.dart';
 import 'package:covid19tracker/provider/summary_provider.dart';
+import 'package:covid19tracker/widgets/country_card.dart';
 import 'package:covid19tracker/widgets/information_card.dart';
+import 'package:enhanced_future_builder/enhanced_future_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +17,8 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    _summaryProvider =
-        Provider.of<SummaryProvider>(context, listen: false).getSummary();
+    _summaryProvider = Provider.of<SummaryProvider>(context).getSummary();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -25,94 +27,97 @@ class _HomepageState extends State<Homepage> {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
-      body: FutureBuilder<Summary>(
+      body: EnhancedFutureBuilder(
         future: _summaryProvider,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
-
-          return snapshot.hasData
-              ? buildUi(snapshot)
-              : Center(child: CircularProgressIndicator());
-        },
+        rememberFutureResult: true,
+        whenNotDone: Center(child: CircularProgressIndicator()),
+        whenDone: (dynamic snapshot) => buildUi(snapshot),
       ),
     );
   }
 
-  Widget buildUi(AsyncSnapshot<Summary> snapshot) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget buildUi(Summary snapshot) {
+    var size = MediaQuery.of(context).size;
+    final height = size.height / 2;
+    final width = size.width * 0.65;
+    return ListView(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-              'Last updated: ${DateFormat('dd-MM-yyyy HH:mm').format(snapshot.data.date)}'),
-        ),
-        Align(
-          child: InformationCard(
-            left: true,
-            height: 100,
-            width: MediaQuery.of(context).size.width * 0.9,
-            information: "${snapshot.data.global.totalConfirmed}",
-            title: 'Total Cases: ',
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            InformationCard(
-                height: 100,
-                width: 175,
-                title: 'Deaths',
-                information: '${snapshot.data.global.totalDeaths}',
-                left: false),
-            InformationCard(
-              height: 100,
-              width: 175,
-              title: 'Recovered',
-              information: '${snapshot.data.global.totalRecovered}',
-              left: false,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Most Affected Countries',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
+                  'Last updated: ${DateFormat('dd-MM-yyyy HH:mm').format(snapshot.date)}'),
+            ),
+            Align(
+              child: InformationCard(
+                left: true,
+                height: 100,
+                width: MediaQuery.of(context).size.width * 0.9,
+                information: "${snapshot.global.totalConfirmed}",
+                title: 'Total Cases: ',
               ),
             ),
-            FlatButton.icon(
-              onPressed: null,
-              icon: Text('View All'),
-              label: Icon(
-                Icons.arrow_forward_ios,
-                size: 15,
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                InformationCard(
+                    height: 100,
+                    width: 175,
+                    title: 'Deaths',
+                    information: '${snapshot.global.totalDeaths}',
+                    left: false),
+                InformationCard(
+                  height: 100,
+                  width: 175,
+                  title: 'Recovered',
+                  information: '${snapshot.global.totalRecovered}',
+                  left: false,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text(
+                    'Most Affected Countries',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                FlatButton.icon(
+                  onPressed: null,
+                  icon: Text('View All'),
+                  label: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                ),
+              ],
+            ),
+            GridView.builder(
+              itemCount: 4,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: height / width,
               ),
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              itemBuilder: (BuildContext ctx, int index) {
+                var country = Provider.of<SummaryProvider>(context)
+                    .mostAffectedCountries(snapshot.countries);
+                return CountryCard(country[index]);
+              },
             ),
           ],
-        ),
-        Container(
-          height: 100,
-          width: MediaQuery.of(context).size.width,
-          child: ListView.separated(
-            itemCount: 4,
-            scrollDirection: Axis.horizontal,
-            separatorBuilder: (BuildContext ctx, int index) => Divider(),
-            itemBuilder: (BuildContext ctx, int index) {
-              return ListTile(
-                title: Text('Hello'),
-              );
-            },
-          ),
         ),
       ],
     );

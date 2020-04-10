@@ -30,7 +30,7 @@ class _MainAppPageState extends State<MainAppPage> {
       bottomNavigationBar: Container(
         width: MediaQuery.of(context).size.width / 5,
         decoration: BoxDecoration(color: Colors.white, boxShadow: [
-          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.2))
+          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
         ]),
         child: GNav(
           tabMargin: EdgeInsets.all(10.0),
@@ -60,9 +60,9 @@ class _MainAppPageState extends State<MainAppPage> {
           ],
           selectedIndex: _selectedIndex,
           onTabChange: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
+              setState(() {
+                _selectedIndex = index;
+              });
           },
         ),
       ),

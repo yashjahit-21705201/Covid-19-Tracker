@@ -3,8 +3,7 @@ import 'package:covid19tracker/models/country.dart';
 import 'package:covid19tracker/models/summary.dart';
 import 'package:flutter/material.dart';
 
-class SummaryProvider with ChangeNotifier{
-
+class SummaryProvider with ChangeNotifier {
   StatisticsRestApi _api = StatisticsRestApi();
 
   Summary _summary;
@@ -18,12 +17,10 @@ class SummaryProvider with ChangeNotifier{
     return _summary.countries;
   }
 
-  List<Country> mostAffectedCountries() {
-    var countries = _summary.countries;
-    countries.sort((a, b) => a.totalConfirmed.compareTo(b.totalConfirmed));
-
-    print(countries[0].country);
-    return countries.getRange(0, 3);
+  List<Country> mostAffectedCountries(List<Country> countries) {
+    if (countries != null) {
+      countries.sort((a, b) => b.totalConfirmed.compareTo(a.totalConfirmed));
+      return countries;
+    }
   }
-
 }
