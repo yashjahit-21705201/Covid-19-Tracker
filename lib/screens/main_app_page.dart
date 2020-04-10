@@ -1,8 +1,6 @@
 import 'package:covid19tracker/screens/homepage.dart';
 import 'package:covid19tracker/screens/news.dart';
-import 'package:covid19tracker/screens/settings.dart';
 import 'package:covid19tracker/screens/symptoms.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -20,7 +18,6 @@ class _MainAppPageState extends State<MainAppPage> {
     Homepage(),
     News(),
     Symptoms(),
-    Settings(),
   ];
   
   @override
@@ -52,10 +49,6 @@ class _MainAppPageState extends State<MainAppPage> {
             GButton(
               icon: Icons.local_hospital,
               text: 'Symptoms',
-            ),
-            GButton(
-              icon: Icons.settings,
-              text: 'Settings',
             ),
           ],
           selectedIndex: _selectedIndex,
