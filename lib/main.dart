@@ -1,5 +1,7 @@
 import 'package:covid19tracker/models/summary.dart';
 import 'package:covid19tracker/provider/summary_provider.dart';
+import 'package:covid19tracker/screens/countryUI/countries_list.dart';
+import 'package:covid19tracker/screens/countryUI/country_information.dart';
 import 'package:covid19tracker/screens/main_app_page.dart';
 import 'package:covid19tracker/screens/news.dart';
 import 'package:covid19tracker/screens/symptoms.dart';
@@ -32,6 +34,8 @@ class MyApp extends StatelessWidget {
         routes: {
           News.routeName: (ctx) => News(),
           Symptoms.routeName: (ctx) => Symptoms(),
+          CountryInformation.routeName: (ctx) => CountryInformation(),
+          CountryList.routeName: (ctx) => CountryList(),
         },
       ),
     );

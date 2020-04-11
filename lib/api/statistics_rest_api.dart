@@ -15,8 +15,10 @@ class StatisticsRestApi {
     var response = await http
         .get('$_DEFAULT_URL/summary', headers: {"Accept": "application/json"});
 
-    Map userMap = jsonDecode(response.body);
-    _summary = Summary.fromJson(userMap);
+    if (response.statusCode == 200) {
+      Map userMap = jsonDecode(response.body);
+      _summary = Summary.fromJson(userMap);
+    }
 
     return _summary;
   }

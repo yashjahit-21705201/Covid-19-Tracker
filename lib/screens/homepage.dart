@@ -1,5 +1,7 @@
 import 'package:covid19tracker/models/summary.dart';
 import 'package:covid19tracker/provider/summary_provider.dart';
+import 'package:covid19tracker/screens/countryUI/countries_list.dart';
+import 'package:covid19tracker/screens/countryUI/country_information.dart';
 import 'package:covid19tracker/widgets/country_card.dart';
 import 'package:covid19tracker/widgets/information_card.dart';
 import 'package:enhanced_future_builder/enhanced_future_builder.dart';
@@ -28,11 +30,13 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
       body: EnhancedFutureBuilder(
-        future: _summaryProvider,
-        rememberFutureResult: true,
-        whenNotDone: Center(child: CircularProgressIndicator()),
-        whenDone: (dynamic snapshot) => buildUi(snapshot),
-      ),
+              future: _summaryProvider,
+              rememberFutureResult: true,
+              whenNotDone: Center(child: CircularProgressIndicator()),
+              initialData: _summaryProvider,
+              whenNone: Text('No internet Connection'),
+              whenDone: (dynamic snapshot) => buildUi(snapshot),
+            ),
     );
   }
 
@@ -94,7 +98,8 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
                 FlatButton.icon(
-                  onPressed: null,
+                  onPressed: () =>
+                      Navigator.of(context).pushNamed(CountryList.routeName),
                   icon: Text('View All'),
                   label: Icon(
                     Icons.arrow_forward_ios,
@@ -114,7 +119,12 @@ class _HomepageState extends State<Homepage> {
               itemBuilder: (BuildContext ctx, int index) {
                 var country = Provider.of<SummaryProvider>(context)
                     .mostAffectedCountries(snapshot.countries);
-                return CountryCard(country[index]);
+                return GestureDetector(
+                  child: CountryCard(country[index]),
+                  onTap: () => Navigator.of(context).pushNamed(
+                      CountryInformation.routeName,
+                      arguments: country[index]),
+                );
               },
             ),
           ],
