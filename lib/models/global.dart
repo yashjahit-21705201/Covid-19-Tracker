@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'global.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Global {
   @JsonKey(name: 'NewConfirmed')
   final int newConfirmed;
@@ -26,5 +26,7 @@ class Global {
       this.totalRecovered});
 
   factory Global.fromJson(Map<String, dynamic> json) => _$GlobalFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GlobalToJson(this);
 
 }

@@ -26,10 +26,6 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           fontFamily: 'Open Sans',
         ),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          fontFamily: 'Open Sans',
-        ),
         home: MainAppPage(),
         routes: {
           News.routeName: (ctx) => News(),

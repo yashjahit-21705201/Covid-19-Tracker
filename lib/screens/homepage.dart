@@ -33,7 +33,6 @@ class _HomepageState extends State<Homepage> {
               future: _summaryProvider,
               rememberFutureResult: true,
               whenNotDone: Center(child: CircularProgressIndicator()),
-              initialData: _summaryProvider,
               whenNone: Text('No internet Connection'),
               whenDone: (dynamic snapshot) => buildUi(snapshot),
             ),

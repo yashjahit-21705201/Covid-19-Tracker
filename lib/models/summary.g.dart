@@ -20,7 +20,7 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$SummaryToJson(Summary instance) => <String, dynamic>{
-      'Global': instance.global,
-      'Countries': instance.countries,
+      'Global': instance.global?.toJson(),
+      'Countries': instance.countries?.map((e) => e?.toJson())?.toList(),
       'Date': instance.date?.toIso8601String(),
     };

@@ -5,7 +5,8 @@ import 'global.dart';
 
 part 'summary.g.dart';
 
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class Summary {
 
   @JsonKey(name: 'Global')
@@ -19,5 +20,7 @@ class Summary {
   Summary({this.global, this.countries, this.date});
 
   factory Summary.fromJson(Map<String, dynamic> json) => _$SummaryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SummaryToJson(this);
 
 }

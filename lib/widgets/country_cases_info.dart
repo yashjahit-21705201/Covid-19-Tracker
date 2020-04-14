@@ -42,7 +42,7 @@ class CountryCasesInfo extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Text('New Confirmed'),
+                    Text('New Confirmed (since yesterday)'),
                     Text('$newConfirmed', style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -75,7 +75,7 @@ class CountryCasesInfo extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Text('New Recovered'),
+                    Text('New Recovered (since yesterday)'),
                     Text('$newRecovered', style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -108,7 +108,7 @@ class CountryCasesInfo extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Text('New Deaths'),
+                    Text('New Deaths (since yesterday)'),
                     Text('$newDeaths', style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
